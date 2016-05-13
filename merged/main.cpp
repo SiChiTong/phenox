@@ -150,9 +150,9 @@ int main(int argc, char **argv)
   Vector3f v140(-0.70, 1.56,0.0);
   Vector3f v160(-0.35, 1.56,0.0);
   Vector3f v170( 0.35, 1.56,0.0);
-  Vector3f v190( 0.70, 1.56,0.0);
+  Vector3f v180( 0.70, 1.56,0.0);
 
-  Vector3f v200(-0.70, 2.06,0.0);
+  Vector3f v190(-0.70, 2.06,0.0);
   Vector3f v220(-0.35, 2.06,0.0);
   Vector3f v230( 0.35, 2.06,0.0);
   Vector3f v240( 0.70, 2.06,0.0);
@@ -188,8 +188,8 @@ int main(int argc, char **argv)
   AR_id[140]=  v140;
   AR_id[160]=  v160;
   AR_id[170]=  v170;
-  AR_id[190]=  v190;
-  AR_id[200] = v200;
+  AR_id[180]=  v180;
+  AR_id[190] = v190;
   AR_id[220]=  v220;
   AR_id[230]=  v230;
   AR_id[240]=  v240;
@@ -331,6 +331,9 @@ void *timer_handler(void *ptr) {
         static Vector2f input(0,0);
         int bounded;
 
+        bool lineisVisible;
+        static Vector2f pre_norm;
+
         // -------------------------------------------------------------------
         // get boundary norm -------------------------------------------------
         // -------------------------------------------------------------------
@@ -341,7 +344,7 @@ void *timer_handler(void *ptr) {
             norm2 = gnorm2;
             norm_start2 = gnorm_start2;
             boundary_cnt = gboundary_cnt;
-	    mu=gmu;
+            mu=gmu;
             //cout << "boundary cnt = " << boundary_cnt << endl;
             //cout << "norm = \n" << norm << endl;
             //cout << "norm2 = \n" << norm2 << endl;
@@ -351,6 +354,15 @@ void *timer_handler(void *ptr) {
         }else{
             bounded = 1;
         }
+
+        if(pre_norm == norm) {
+            lineisVisible = false;
+        }else{
+            cout << " line is visible ! " << endl;
+            lineisVisible = true;
+        }
+        pre_norm = norm;
+
 
         // --------------------------------------------------------------------
         // get landing and direction-------------------------------------------
@@ -372,7 +384,9 @@ void *timer_handler(void *ptr) {
                 data = client.getData("direction");//データをsio::message::ptrとして取得
                 parseDirection(data);//データ抽出用関数に渡す
                 std::cout << "direction = [" << direction[0] << ", " << direction[1] << "]" << std::endl;
-                ctrlr.changeVel(direction, pos);
+                if(!lineisVisible || 100*mu[1] < 120) {
+                    ctrlr.changeVel(direction, pos);
+                }
         }
 
         // --------------------------------------------------------------------

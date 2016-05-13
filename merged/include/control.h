@@ -17,8 +17,11 @@ class PxController {
     bool bound_locked_;
     int boost_count_;
     int dbound_lock_cnt;
+    bool game_bound_locked_;
 
     bool game_started_;
+
+    int bound_param_;
 
 public:
 
