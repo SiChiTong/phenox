@@ -1,6 +1,6 @@
 #include "control.h"
 #include <iostream>
-#define BOUNDLOCKTIME 1
+#define BOUNDLOCKTIME 0.5
 #define GAMELOCKTIME 1
 #define BOOSTTIME 7
 #define BOOSTPARAM 5
@@ -54,7 +54,7 @@ int PxController::bound(Vector2f &n) {
     if(ndotv < -0.8) {
         Vector2f dn;
         dn << n.y(),-n.x();
-        v_ += bound_param_*0.2*dn;
+        v_ += bound_param_*0.1*dn;
         v_.normalize();
     }
     bound_locked_ = true;

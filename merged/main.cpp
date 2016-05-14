@@ -177,6 +177,18 @@ int main(int argc, char **argv)
   Vector3f v390( 0.35, 0.06,0.0);
   Vector3f v400( 0.70, 0.06,0.0);
 
+  Vector3f v410( -1.05, 0.06,0.0);
+  Vector3f v420( -1.05, 0.56,0.0);
+  Vector3f v430( -1.05, 1.06,0.0);
+  Vector3f v440( -1.05, 1.56,0.0);
+  Vector3f v450( -1.05, 2.06,0.0);
+  Vector3f v460( -1.05, 2.56,0.0);
+  Vector3f v470( -1.05, 3.06,0.0);
+
+  Vector3f v480( -1.05, -0.46,0.0);
+  Vector3f v490( -0.70, -0.46,0.0);
+  Vector3f v500( 0.70, -0.46,0.0);
+
   AR_id[0] = v0;
   AR_id[20]=  v20;
   AR_id[40]=  v40;
@@ -209,6 +221,19 @@ int main(int argc, char **argv)
   AR_id[380]=  v380;
   AR_id[390]=  v390;
   AR_id[400]=  v400;
+
+  AR_id[410]=  v410;
+  AR_id[420]=  v420;
+  AR_id[430]=  v430;
+  AR_id[440]=  v440;
+  AR_id[450]=  v450;
+  AR_id[460]=  v460;
+  AR_id[470]=  v470;
+
+  AR_id[480]=  v480;
+  AR_id[490]=  v490;
+  AR_id[500]=  v500;
+
 
   Vector3f mu,u,px_v;
   double t;
@@ -440,7 +465,7 @@ void *timer_handler(void *ptr) {
             else if (hover_cnt == 500) {
                 cout << "start control" << endl;
                 client.sendData("px_start", makePxStart());
-                ctrlr.init(0,0,origin,pos);
+                ctrlr.init(0,0.1,origin,pos);
                 hover_cnt++;
             }
             else{

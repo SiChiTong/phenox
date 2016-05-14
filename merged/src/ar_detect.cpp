@@ -141,7 +141,7 @@ Vector3f AR_DETECT::LKF(Mat outputImage,vector<Marker> markers,CameraParameters 
 			mu=mu_+K*yi;
 			Sigma=Sigma_-K*H*Sigma_;
 			cout << mu(0) << endl;
-			if ( -1.2<mu(0) && mu(0)<1.2 && -0.1<mu(1) && mu(1)<4.0){
+			if ( -1.2<mu(0) && mu(0)<1.2 && -0.5<mu(1) && mu(1)<4.0){
 			//	cout<<"ok"<<mu(0)<<endl;
 				mu_tmp=mu;
 			}
